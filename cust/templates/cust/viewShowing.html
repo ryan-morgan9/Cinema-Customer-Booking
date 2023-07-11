@@ -1,0 +1,37 @@
+{% extends "cust/base.html" %}
+{% block title %}
+Select Showing
+{% endblock %}
+{% block content %}
+    <h1>View Showing</h1>
+    
+    {% if showing %}
+        <table class="account_list">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Title</th>
+                <th>Age Rating</th>
+                <th>Duration</th>
+                <th>Description</th>
+                <th>Screen</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ showing.showingDate }}</td>
+                <td>{{ showing.showingTime }}</td>
+                <td>{{ showing.filmTitle }}</td>
+                <td>{{ showing.ageRating }}</td>
+                <td>{{ showing.filmDuration }} hrs</td>
+                <td>{{ showing.trailerDescription }}</td>
+                <td>{{ showing.screen_id }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+    {% else %}
+        <p>No showings at this time. Come back later.</p>
+    {% endif %}
+{% endblock %}

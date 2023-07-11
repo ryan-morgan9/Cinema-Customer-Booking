@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>{% block title %}{% endblock %}</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'cust/site.css' %}"/>
+    </head>
+
+    <body>
+        <h1 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">UWEFlix Cinema Booking</h1>
+        <div class="navbar">
+            <a href="{% url 'selectDate' %}" class="navbar-item">Make Booking (Create)</a>
+            <a href="{% url 'getPayment_View' %}" class="navbar-item">View Booking (Read)</a>
+            <a href="{% url 'getPayment_Modify' %}" class="navbar-item">Modify Booking (Update)</a>
+            <a href="{% url 'getPayment_Delete' %}" class="navbar-item">Delete Booking (Delete)</a>
+        </div>
+
+        <div class="body-content">
+            {% block content %}
+            {% endblock %}
+            <br/>
+            <footer>
+                <p>Ryan Morgan</p>
+            </footer>
+        </div>
+    </body>
+</html>

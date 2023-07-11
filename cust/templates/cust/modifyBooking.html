@@ -1,0 +1,40 @@
+{% extends "cust/base.html" %}
+{% block title %}
+Select Showing
+{% endblock %}
+{% block content %}
+    <h1>Modify Bookings</h1>
+    
+    {% if booking_list %}
+    <form method="POST">
+        {% csrf_token %}
+        
+        <table class="account_list">
+            <thead>
+            <tr>
+                <th>Select</th>
+                <th>Showing ID</th>
+                <th>Number of Tickets</th>
+                <th>Total Cost</th>
+                <th>Payment Details ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for booking in booking_list %}
+                <tr>
+                    <td><input type="radio" name="selectedBooking" value="{{ booking.id }}" required></td>
+                    <td>{{ booking.showingRef }}</td>
+                    <td>{{ booking.ticketQuantity }}</td>
+                    <td>&pound;{{ booking.totalCost }}</td>
+                    <td>{{ booking.paymentRef }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+        <input type="submit" value="Modify Booking">
+    </form>
+    {% else %}
+        <p>No Bookings have been made. Make a <a href="{% url 'selectDate' %}">booking</a> now.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "cust/base.html" %}
+{% block title %}
+Select Showing
+{% endblock %}
+{% block content %}
+    <script>
+        function calculateTotal(){
+            var adultQuantity = document.getElementById('adultQuantity').value;
+            var studentQuantity = document.getElementById('studentQuantity').value;
+            var childQuantity = document.getElementById('childQuantity').value;
+            var ticketPriceAdult = document.getElementById('ticketPriceAdult').textContent;
+            var ticketPriceStudent = document.getElementById('ticketPriceStudent').textContent;
+            var ticketPriceChild = document.getElementById('ticketPriceChild').textContent;
+            // Calculate Price
+            var display = document.getElementById("sumCost").innerHTML = '£' + ((adultQuantity * ticketPriceAdult)+(studentQuantity * ticketPriceStudent)+(childQuantity * ticketPriceChild));
+        }
+    </script>
+    <h1>Showings for {{ selectedDate }}</h1>
+    
+    {% if getShowings %}    
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <div style="display: none;"><p id='ticketPriceAdult'>{{ ticketPriceAdult }}</p><p id='ticketPriceStudent'>{{ ticketPriceStudent }}</p><p id='ticketPriceChild'>{{ ticketPriceChild }}</p></div>
+            <label for="adultQuantity"><b>Adult Ticket Quantity:</b></label>
+            <input type="number" id="adultQuantity" name="adultQuantity" value="0" min="0" onchange="calculateTotal()">
+            <br>
+            <label for="studentQuantity"><b>Student Ticket Quantity:</b></label>
+            <input type="number" id="studentQuantity" name="studentQuantity" value="0" min="0" onchange="calculateTotal()">
+            <br>
+            <label for="childQuantity"><b>Child Ticket Quantity:</b></label>
+            <input type="number" id="childQuantity" name="childQuantity" value="0" min="0" onchange="calculateTotal()">
+        </div>
+        <br>
+        <table class="account_list">
+            <thead>
+            <tr>
+                <th>Select</th>
+                <th>Time</th>
+                <th>Title</th>
+                <th>Age Rating</th>
+                <th>Duration</th>
+                <th>Description</th>
+                <th>Screen</th>
+                <th>Socially Distanced</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for showing in getShowings %}
+                <tr>
+                    <td><input type="radio" name="selectedShowing" value="{{ showing.id }}" required></td>
+                    <td>{{ showing.showingTime }}</td>
+                    <td>{{ showing.filmTitle }}</td>
+                    <td>{{ showing.ageRating }}</td>
+                    <td>{{ showing.filmDuration }} hrs</td>
+                    <td>{{ showing.trailerDescription }}</td>
+                    <td>{{ showing.screen_id }}</td>
+                    <td>{{ showing.sociallyDistanced }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <p><b>Total Price: </b></p><p id="sumCost"></p>
+
+        <input type="submit" value="Make Booking">
+    </form>
+    {% else %}
+        <p>No showings for this date. Come back later.</p>
+    {% endif %}
+{% endblock %}

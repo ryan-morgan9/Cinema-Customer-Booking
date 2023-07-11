@@ -1,0 +1,57 @@
+{% extends "cust/base.html" %}
+{% block title %}
+Select Showing
+{% endblock %}
+{% block content %}
+    <h1>Enter Payment Details</h1>
+    {% if show %}
+    <p><b>Showing:</b></p>
+    <table class="account_list">
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th>Title</th>
+            <th>Age Rating</th>
+            <th>Duration</th>
+            <th>Description</th>
+            <th>Screen</th>
+            <th>Socially Distanced</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ show.showingTime }}</td>
+                <td>{{ show.filmTitle }}</td>
+                <td>{{ show.ageRating }}</td>
+                <td>{{ show.filmDuration }} hrs</td>
+                <td>{{ show.trailerDescription }}</td>
+                <td>{{ show.screen_id }}</td>
+                <td>{{ show.sociallyDistanced }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="cardholderName"><b>Cardholder name:</b></label>
+            <input type="text" name="cardholderName" id="cardholderName" required>
+            <br>
+            <label for="cardNumber"><b>Card Number:</b></label>
+            <input type="text" name="cardNumber" id="cardNumber" required>
+            <br>
+            <label for="expiryDate"><b>Expiry Date (MM/YY):</b></label>
+            <input type="text" name="expiryDate" id="expiryDate" required>
+            <br>
+            <p><b>Card Type:</b></p>
+            <input type="radio" name="cardType" id="credit" value="credit" required>
+            <label for="credit">Credit</label>
+            <input type="radio" name="cardType" id="debit" value="debit" required>
+            <label for="debit">Debit</label>
+        </div>
+        <br>
+        <input type="submit" value="Make Booking">
+    </form>
+
+{% endblock %}

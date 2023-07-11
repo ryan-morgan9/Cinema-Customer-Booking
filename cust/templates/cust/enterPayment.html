@@ -1,0 +1,30 @@
+{% extends "cust/base.html" %}
+{% block title %}
+Select Showing
+{% endblock %}
+{% block content %}
+    <h1>Enter The Payment Details That Was Entered For Your Bookings</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="cardholderName"><b>Cardholder name:</b></label>
+            <input type="text" name="cardholderName" id="cardholderName" required>
+            <br>
+            <label for="cardNumber"><b>Card Number:</b></label>
+            <input type="text" name="cardNumber" id="cardNumber" required>
+            <br>
+            <label for="expiryDate"><b>Expiry Date (MM/YY):</b></label>
+            <input type="text" name="expiryDate" id="expiryDate" required>
+            <br>
+            <p><b>Card Type:</b></p>
+            <input type="radio" name="cardType" id="credit" value="credit" required>
+            <label for="credit">Credit</label>
+            <input type="radio" name="cardType" id="debit" value="debit" required>
+            <label for="debit">Debit</label>
+        </div>
+        <br>
+        <input type="submit" value="Find Bookings">
+    </form>
+
+{% endblock %}

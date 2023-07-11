@@ -1,0 +1,73 @@
+{% extends "cust/base.html" %}
+{% block title %}
+Select Showing
+{% endblock %}
+{% block content %}
+    <h1>Change Showing</h1>
+
+    {% if current_showing %}
+    <p>Current Showing</p>
+    <table class="account_list">
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th>Title</th>
+            <th>Age Rating</th>
+            <th>Duration</th>
+            <th>Description</th>
+            <th>Screen</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ current_showing.showingTime }}</td>
+                <td>{{ current_showing.filmTitle }}</td>
+                <td>{{ current_showing.ageRating }}</td>
+                <td>{{ current_showing.filmDuration }} hrs</td>
+                <td>{{ current_showing.trailerDescription }}</td>
+                <td>{{ current_showing.screen_id }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+
+    
+    {% if showing_list %}
+    <form method="POST">
+        {% csrf_token %}
+        
+        <table class="account_list">
+            <thead>
+            <tr>
+                <th>Select</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Title</th>
+                <th>Age Rating</th>
+                <th>Duration</th>
+                <th>Description</th>
+                <th>Screen</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for showing in showing_list %}
+                <tr>
+                    <td><input type="radio" name="new_showing" value="{{ showing.id }}" required></td>
+                    <td>{{ showing.showingDate }}</td>
+                    <td>{{ showing.showingTime }}</td>
+                    <td>{{ showing.filmTitle }}</td>
+                    <td>{{ showing.ageRating }}</td>
+                    <td>{{ showing.filmDuration }} hrs</td>
+                    <td>{{ showing.trailerDescription }}</td>
+                    <td>{{ showing.screen_id }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+        <input type="submit" value="Choose New Showing">
+    </form>
+    {% else %}
+        <p>No showings at this time. Come back later.</p>
+    {% endif %}
+{% endblock %}

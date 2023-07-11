@@ -1,0 +1,20 @@
+{% extends "cust/base.html" %}
+{% block title %}
+Select Date
+{% endblock %}
+{% block content %}
+    <h1>Select Date of Showing</h1>
+    <form method="POST" class="signup-form">
+        {% csrf_token %}
+        {% if showingDates %}
+            <select name="showingDate" id="showingDate">
+            {% for date in showingDates %}
+            <option value="{{ date }}">{{ date }}</option>
+            {% endfor %}
+            </select>
+        {% else %}
+            <p>No showings available. Please come back another time.</p>
+        {% endif %}
+        <button type="submit" class="save btn btn-default">Select Date</button>
+    </form>
+{% endblock %}
